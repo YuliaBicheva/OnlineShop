@@ -1,0 +1,16 @@
+<Context>
+	 <resource auth="Container" description="DB Connection"  name="jdbc/mysql"
+        driverClass="com.mysql.jdbc.Driver" 
+        user="" 
+        password="password"
+        jdbcUrl="jdbc:mysql://localhost:3306/databasename?useUnicode=yes&amp;characterEncoding=UTF-8" 
+        factory="org.apache.naming.factory.BeanFactory" 
+        type="com.mchange.v2.c3p0.ComboPooledDataSource" 
+        maxPoolSize="10" 
+        minPoolSize="0" 
+        maxConnectionAge="100"
+        acquireRetryAttempts="60"
+        acquireIncrement="1" 
+        preferredTestQuery="SELECT 1"
+        testConnectionOnCheckout="true"></resource>
+</Context>
