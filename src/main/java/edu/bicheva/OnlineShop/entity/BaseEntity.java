@@ -1,14 +1,13 @@
-package edu.bicheva.OnlineShop.model.entity;
+package edu.bicheva.OnlineShop.entity;
 
 import java.io.Serializable;
 
 public class BaseEntity implements Serializable {
 
-	private static final long serialVersionUID = 8307925724095122155L;
-
-	public BaseEntity() {
-	}
+	private static final long serialVersionUID = 5657982775252079801L;
 	
+	private Integer id;
+
 	public Integer getId() {
 		return id;
 	}
@@ -16,7 +15,5 @@ public class BaseEntity implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	private Integer id;
-
+	
 }

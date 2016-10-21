@@ -1,10 +1,10 @@
-package edu.bicheva.OnlineShop.model.entity;
+package edu.bicheva.OnlineShop.entity;
 
 import java.util.*;
 
-public class Group extends NamedEntity {
+public class Group extends NamedEntity{
 
-	private static final long serialVersionUID = 5513908215852461288L;
+	private static final long serialVersionUID = 6965946465312374344L;
 
 	private List<Goods> goods;
 	
@@ -26,5 +26,8 @@ public class Group extends NamedEntity {
 		this.childrens = childrens;
 	}
 	
+	public void addChildrenGroup(Group group){
+		this.childrens.add(group);
+	}
 	
 }
