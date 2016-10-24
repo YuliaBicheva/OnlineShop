@@ -13,7 +13,7 @@
 				var login = $("#login").val();
 				var password = $("#password").val();
 				$.ajax({
-					url : "controller?action=login",
+					url : "test?action=login",
 					type : 'POST',
 					data : {
 						login : login,

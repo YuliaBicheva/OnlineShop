@@ -12,7 +12,7 @@
   
   <servlet-mapping>
   	<servlet-name>MainController</servlet-name>
-  	<url-pattern>/controller</url-pattern>
+  	<url-pattern>/test</url-pattern>
   </servlet-mapping>
   
   <servlet>
@@ -23,6 +23,16 @@
   <servlet-mapping>
   	<servlet-name>AjaxController</servlet-name>
   	<url-pattern>/summarizing</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>MainController</servlet-name>
+  	<servlet-class>edu.bicheva.OnlineShop.controller.Controller</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>MainController</servlet-name>
+  	<url-pattern>/controller/*</url-pattern>
   </servlet-mapping>
   
 </web-app>

@@ -27,7 +27,7 @@
 									+ "<td>" + good.countryOfOrigin.name + "</td>"
 									+ "</tr>");
 					},
-					url:'controller?action=find'
+					url:'test?action=find'
 				});
 			});
 			$("#findGoodsList").click(function(){
@@ -53,7 +53,7 @@
 									+ "</tr>");
 						}
  				},
-					url:'controller?action=findAll'
+					url:'test?action=findAll'
 				});
 			});
 		});
