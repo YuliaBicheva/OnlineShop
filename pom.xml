@@ -16,9 +16,17 @@
   	<junit.version>4.12</junit.version>
   	<postgresql.version>9.1-901-1.jdbc4</postgresql.version>
   	<javax.servlet.version>3.1.0</javax.servlet.version>
+  	<jstl.version>1.2</jstl.version>
+  	<slf4j.version>1.7.21</slf4j.version>
+  	<gson.version>2.7</gson.version>
   </properties>
   
   <dependencies>
+  	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>${jstl.version}</version>
+	</dependency>
   	<dependency>
   	  <groupId>javax.servlet</groupId>
   	  <artifactId>javax.servlet-api</artifactId>
@@ -37,7 +45,27 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-api</artifactId>
+    	<version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.slf4j</groupId>
+    	<artifactId>slf4j-log4j12</artifactId>
+    	<version>${slf4j.version}</version>
+    </dependency>
+    
+    <dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>${gson.version}</version>
+  </dependency>
   </dependencies>
+  
+  
+
+  
   
   <build>
     <finalName>OnlineShop</finalName>
@@ -47,7 +75,7 @@
 	        <artifactId>maven-compiler-plugin</artifactId>
 	        <version>3.5.1</version>
 	        <configuration>
- 	          <source>${java.runtime.version}</source>
+	          <source>${java.runtime.version}</source>
 	          <target>${java.runtime.version}</target>
 	        </configuration>
 	      </plugin>

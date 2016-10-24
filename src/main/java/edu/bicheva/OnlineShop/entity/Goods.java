@@ -23,6 +23,26 @@ public class Goods extends NamedEntity {
 	private Producer producer;
 	
 	private Country countryOfOrigin;
+	
+	
+
+	public Goods() {
+		super();
+	}
+
+	public Goods(long serialNo, String description, String imageUrl, boolean availability, int quantity,
+			Money price, List<Attribute> attributes, Producer producer, Country countryOfOrigin) {
+		super();
+		this.serialNo = serialNo;
+		this.description = description;
+		this.imageUrl = imageUrl;
+		this.availability = availability;
+		this.quantity = quantity;
+		this.price = price;
+		this.attributes = attributes;
+		this.producer = producer;
+		this.countryOfOrigin = countryOfOrigin;
+	}
 
 	public Long getSerialNo() {
 		return serialNo;

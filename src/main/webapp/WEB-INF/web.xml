@@ -4,14 +4,16 @@
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
-<!--   <servlet>
-    <servlet-name>HelloServlet</servlet-name>
-    <jsp-file>/index.jsp</jsp-file>
+  
+  <servlet>
+  	<servlet-name>MainController</servlet-name>
+  	<servlet-class>edu.bicheva.OnlineShop.controller.TestAjax</servlet-class>
   </servlet>
+  
   <servlet-mapping>
-    <servlet-name>HelloServlet</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping> -->
+  	<servlet-name>MainController</servlet-name>
+  	<url-pattern>/controller</url-pattern>
+  </servlet-mapping>
   
   <servlet>
   	<servlet-name>AjaxController</servlet-name>
@@ -22,4 +24,5 @@
   	<servlet-name>AjaxController</servlet-name>
   	<url-pattern>/summarizing</url-pattern>
   </servlet-mapping>
+  
 </web-app>

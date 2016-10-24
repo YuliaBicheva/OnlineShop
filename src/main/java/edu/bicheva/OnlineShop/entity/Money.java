@@ -37,7 +37,7 @@ public class Money implements Serializable {
 		this.currency = currency;
 	}
 	
-	public Money valueOf(double price, String currency){
+	public static Money valueOf(double price, String currency){
 		int integral = (int)price;
 		int fractional = (int)(price*100 - integral*100);
 		
