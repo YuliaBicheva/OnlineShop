@@ -1,4 +1,4 @@
-package edu.bicheva.OnlineShop.controller;
+package edu.bicheva.OnlineShop.web.controller;
 
 import java.io.IOException;
 

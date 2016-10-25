@@ -1,4 +1,4 @@
-package edu.bicheva.OnlineShop.controller;
+package edu.bicheva.OnlineShop.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.bicheva.OnlineShop.JsonResponse;
 import edu.bicheva.OnlineShop.model.*;
+import edu.bicheva.OnlineShop.web.JsonResponse;
 
 public class TestAjax extends HttpServlet {
 	

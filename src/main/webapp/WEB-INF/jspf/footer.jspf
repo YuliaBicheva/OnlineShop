@@ -1,0 +1,6 @@
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<div class="footer">
+	Velozapchast - Developed by Yulia Bicheva
+</div>

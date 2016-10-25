@@ -19,32 +19,40 @@
   	<jstl.version>1.2</jstl.version>
   	<slf4j.version>1.7.21</slf4j.version>
   	<gson.version>2.7</gson.version>
+  	<jersey.version>2.23.2</jersey.version>
   </properties>
   
   <dependencies>
-  	<dependency>
+  
+  <!-- Servlet and JSP taglibs -->
+   	<dependency>
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>jstl</artifactId>
 	    <version>${jstl.version}</version>
 	</dependency>
+	
   	<dependency>
   	  <groupId>javax.servlet</groupId>
   	  <artifactId>javax.servlet-api</artifactId>
   	  <version>${javax.servlet.version}</version>
   	</dependency>
   	
+  	<!-- Database -->
   	<dependency>
 	  <groupId>postgresql</groupId>
 	  <artifactId>postgresql</artifactId>
 	  <version>${postgresql.version}</version>
 	</dependency>
   	
+  	<!-- Tests -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- Logging -->
     <dependency>
     	<groupId>org.slf4j</groupId>
     	<artifactId>slf4j-api</artifactId>
@@ -56,17 +64,52 @@
     	<version>${slf4j.version}</version>
     </dependency>
     
+    <!-- REST -->
+
+	<!-- <dependency>
+	    <groupId>org.glassfish.jersey.containers</groupId>
+	    <artifactId>jersey-container-servlet</artifactId>
+	    <version>${jersey.version}</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.glassfish.jersey.core</groupId>
+	    <artifactId>jersey-client</artifactId>
+	    <version>${jersey.version}</version>
+	    <scope>provided</scope> -->
+<!-- 	</dependency>
+ --><!-- 	<dependency>
+	    <groupId>org.glassfish.jersey.core</groupId>
+	    <artifactId>jersey-server</artifactId>
+	    <version>${jersey.version}</version>
+	</dependency> -->
+	
+	<dependency>
+	    <groupId>org.glassfish.jersey.containers</groupId>
+	    <artifactId>jersey-container-servlet-core</artifactId>
+<!-- 	    <version>${jersey.version}</version>
+ -->	</dependency>
+    
     <dependency>
-    <groupId>com.google.code.gson</groupId>
-    <artifactId>gson</artifactId>
-    <version>${gson.version}</version>
-  </dependency>
+	    <groupId>com.google.code.gson</groupId>
+	    <artifactId>gson</artifactId>
+	    <version>${gson.version}</version>
+	</dependency>
+	
   </dependencies>
   
-  
-
-  
-  
+  <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.glassfish.jersey</groupId>
+                <artifactId>jersey-bom</artifactId>
+                <version>${jersey.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
   <build>
     <finalName>OnlineShop</finalName>
     <plugins>
@@ -74,6 +117,7 @@
 	        <groupId>org.apache.maven.plugins</groupId>
 	        <artifactId>maven-compiler-plugin</artifactId>
 	        <version>3.5.1</version>
+	        <inherited>true</inherited>
 	        <configuration>
 	          <source>${java.runtime.version}</source>
 	          <target>${java.runtime.version}</target>

@@ -3,6 +3,9 @@ package edu.bicheva.OnlineShop.entity;
 import java.io.Serializable;
 import java.util.Currency;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Money implements Serializable {
 
 	private static final long serialVersionUID = -6224047896119965237L;

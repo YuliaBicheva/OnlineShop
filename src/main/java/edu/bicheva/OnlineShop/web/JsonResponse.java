@@ -1,4 +1,4 @@
-package edu.bicheva.OnlineShop;
+package edu.bicheva.OnlineShop.web;
 
 public class JsonResponse {
 	

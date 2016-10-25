@@ -2,6 +2,9 @@ package edu.bicheva.OnlineShop.entity;
 
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Goods extends NamedEntity {
 
 	private static final long serialVersionUID = 76746459836029632L;

@@ -1,0 +1,9 @@
+<%@ include file="/WEB-INF/jspf/directive/page.jspf" %>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<div class="main-nav">
+	<ul>
+		<li><a href="${pageContext.servletContext.contextPath }/">Home</a></li>
+		<li><a href="${pageContext.servletContext.contextPath }/controller/catalog">Catalog</a></li>
+	</ul>
+</div>

@@ -2,6 +2,9 @@ package edu.bicheva.OnlineShop.entity;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 5657982775252079801L;
