@@ -12,7 +12,7 @@
 
 <%@ include file="/WEB-INF/jspf/nav.jspf" %>
 
-<h1>Catalog Page</h1>
+
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
 </body>

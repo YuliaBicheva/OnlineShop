@@ -1,10 +1,10 @@
-package edu.bicheva.OnlineShop.model;
+package edu.bicheva.OnlineShop.service;
 
 import java.util.*;
 
 import edu.bicheva.OnlineShop.entity.*;
 
-public class GoodsModel {
+public class GoodsService {
 	
 	public Goods find(){
 		return new Goods(3241, "goods1", "", true, 20, Money.valueOf(30.5, "UAH"), new ArrayList<Attribute>(), new Producer("ASUS"), new Country("China"));
