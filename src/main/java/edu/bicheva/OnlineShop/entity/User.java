@@ -1,5 +1,8 @@
 package edu.bicheva.OnlineShop.entity;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = -8331573076458119567L;

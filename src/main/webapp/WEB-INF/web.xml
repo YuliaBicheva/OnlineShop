@@ -4,9 +4,9 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
 version="3.1">
 	<display-name>Archetype Created Web Application</display-name>
 	
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
+	<welcome-list>
+		<welcome-page>index.jsp</welcome-page>
+	</welcome-list>
 	
 	<servlet>
 		<servlet-name>Jersey Web Application</servlet-name>
@@ -32,29 +32,7 @@ version="3.1">
     
     <servlet-mapping>
         <servlet-name>Jersey Web Application</servlet-name>
-        <url-pattern>/application/*</url-pattern>
+        <url-pattern>/app/*</url-pattern>
     </servlet-mapping>
-	
-	<!-- <servlet>
-        <servlet-name>Jersey Web Application</servlet-name>
-        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-        <init-param>
-            <param-name>jersey.config.server.provider.packages</param-name>
-            <param-value>edu.bicheva.OnlineShop.web.controller</param-value>
-        </init-param>
-        <init-param>
-	        <param-name>jersey.config.server.mvc.templateBasePath.jsp</param-name>
-	        <param-value>/WEB-INF/jsp</param-value>
-	    </init-param>
-	    <init-param>
-		    <param-name>jersey.config.server.provider.classnames</param-name>
-		    <param-value>org.glassfish.jersey.server.mvc.jsp.JspMvcFeature</param-value>
-	    </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Jersey Web Application</servlet-name>
-        <url-pattern>/web/controller/*</url-pattern>
-    </servlet-mapping> -->
-  
+    
 </web-app>

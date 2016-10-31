@@ -4,7 +4,8 @@
 <div class="main-nav">
 	<ul>
 		<li><a href="${pageContext.servletContext.contextPath}/">Home</a></li>
-		<li><a href="${pageContext.servletContext.contextPath}/application/catalog">Catalog</a></li>
-		<li><a href="${pageContext.servletContext.contextPath}/application/catalog/1">Catalog by id</a></li>
+		<li><a href="${pageContext.servletContext.contextPath}/webapp/catalog">Catalog</a></li>
+		<li><a href="${pageContext.servletContext.contextPath}/webapp/catalog/1">Catalog by id</a></li>
+		<li><a href="${pageContext.servletContext.contextPath}/webapp/admin/login">Admin login</a></li>
 	</ul>
 </div>

@@ -1,10 +1,14 @@
 package edu.bicheva.OnlineShop.entity;
 
-import java.io.Serializable;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
 
-public enum Role implements Serializable {
+@XmlEnum
+public enum Role{
 	
-	ADMIN, CUSTOMER, ANONYM;
+	@XmlEnumValue("admin") ADMIN, 
+	@XmlEnumValue("customer") CUSTOMER, 
+	@XmlEnumValue("anonym") ANONYM;
 
 	public String toString(){
 		return this.name().toLowerCase();
