@@ -1,6 +1,6 @@
 package edu.bicheva.OnlineShop.entity;
 
-import java.util.*;
+import java.util.List;
 
 public class Group extends NamedEntity{
 

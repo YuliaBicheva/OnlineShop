@@ -2,7 +2,7 @@ package edu.bicheva.OnlineShop.entity;
 
 import java.util.List;
 
-public class Cart extends BaseEntity {
+public class Cart extends Entity {
 
 	private static final long serialVersionUID = -8943208168165058903L;
 	

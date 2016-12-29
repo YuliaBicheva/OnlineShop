@@ -2,7 +2,7 @@ package edu.bicheva.OnlineShop.entity;
 
 import java.time.LocalDate;
 
-public class Order extends BaseEntity {
+public class Order extends Entity {
 
 	private static final long serialVersionUID = 1712968972165767407L;
 

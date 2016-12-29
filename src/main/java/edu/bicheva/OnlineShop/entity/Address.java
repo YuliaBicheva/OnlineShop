@@ -1,6 +1,6 @@
 package edu.bicheva.OnlineShop.entity;
 
-public class Address extends BaseEntity {
+public class Address extends Entity {
 	
 	private static final long serialVersionUID = 6970326974524359019L;
 

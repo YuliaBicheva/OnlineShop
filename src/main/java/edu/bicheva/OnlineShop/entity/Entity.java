@@ -4,8 +4,14 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Root of all entities which have id identifier field.
+ * 
+ * @author YuliaBicheva
+ *
+ */
 @XmlRootElement
-public class BaseEntity implements Serializable {
+public class Entity implements Serializable {
 
 	private static final long serialVersionUID = 5657982775252079801L;
 	

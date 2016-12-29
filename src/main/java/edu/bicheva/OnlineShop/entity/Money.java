@@ -9,6 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Money implements Serializable {
 
 	private static final long serialVersionUID = -6224047896119965237L;
+	
+	private static final Currency DEFAULT_CURRENCY = Currency.getInstance("UAH");
 
 	private int integralPart;
 	
@@ -48,6 +50,18 @@ public class Money implements Serializable {
 		moneyValue.setIntegralPart(integral);
 		moneyValue.setFractionalPart(fractional);
 		moneyValue.setCurrency(Currency.getInstance(currency));
+		
+		return moneyValue;
+	}
+	
+	public static Money valueOf(double price){
+		int integral = (int)price;
+		int fractional = (int)(price*100 - integral*100);
+		
+		Money moneyValue = new Money();
+		moneyValue.setIntegralPart(integral);
+		moneyValue.setFractionalPart(fractional);
+		moneyValue.setCurrency(DEFAULT_CURRENCY);
 		
 		return moneyValue;
 	}

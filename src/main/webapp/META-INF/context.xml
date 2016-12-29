@@ -1,16 +1,27 @@
 <Context>
-	 <resource auth="Container" description="DB Connection"  name="jdbc/mysql"
+	 <resource auth="Container" description="DB Connection" name="jdbc/mysql"
         driverClass="com.mysql.jdbc.Driver" 
-        user="" 
-        password="password"
-        jdbcUrl="jdbc:mysql://localhost:3306/databasename?useUnicode=yes&amp;characterEncoding=UTF-8" 
+        user="developer" 
+        password="123456"
+        jdbcUrl="jdbc:mysql://localhost:3306/onlineshop?useUnicode=yes&amp;characterEncoding=UTF-8" 
         factory="org.apache.naming.factory.BeanFactory" 
         type="com.mchange.v2.c3p0.ComboPooledDataSource" 
         maxPoolSize="10" 
         minPoolSize="0" 
         maxConnectionAge="100"
         acquireRetryAttempts="60"
-        acquireIncrement="1" 
-        preferredTestQuery="SELECT 1"
-        testConnectionOnCheckout="true"></resource>
+        acquireIncrement="1" />
+        
+     <resource auth="Container" description="DB Connection" name="jdbc/postgres"
+        driverClass="org.postgresql.Driver" 
+        user="hfvvwwprsuqhbe" 
+        password="dwRSdxHPGisCWA1O0kFeKJboUX"
+        jdbcUrl="jdbc:postgres://hfvvwwprsuqhbe:dwRSdxHPGisCWA1O0kFeKJboUX@ec2-54-75-232-51.eu-west-1.compute.amazonaws.com:5432/d5hjnmqtk7n3q4?useUnicode=yes&amp;characterEncoding=UTF-8" 
+        factory="org.apache.naming.factory.BeanFactory" 
+        type="com.mchange.v2.c3p0.ComboPooledDataSource" 
+        maxPoolSize="10" 
+        minPoolSize="0" 
+        maxConnectionAge="20"
+        acquireRetryAttempts="60"
+        acquireIncrement="1" />
 </Context>

@@ -1,9 +1,13 @@
 package edu.bicheva.OnlineShop.entity;
 
-import java.util.List;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * Goods entity.
+ * 
+ * @author YuliaBicheva
+ *
+ */
 @XmlRootElement
 public class Goods extends NamedEntity {
 
@@ -12,39 +16,15 @@ public class Goods extends NamedEntity {
 	private Long serialNo;
 	
 	private String description;
-	
-	private String imageUrl;
-	
+		
 	private boolean availability;
 	
 	private Integer quantity;
 	
-	private Money price;
-	
-	private List<Attribute> attributes;
-	
-	private Producer producer;
-	
-	private Country countryOfOrigin;
-	
-	
+	private Money price;	
 
 	public Goods() {
 		super();
-	}
-
-	public Goods(long serialNo, String description, String imageUrl, boolean availability, int quantity,
-			Money price, List<Attribute> attributes, Producer producer, Country countryOfOrigin) {
-		super();
-		this.serialNo = serialNo;
-		this.description = description;
-		this.imageUrl = imageUrl;
-		this.availability = availability;
-		this.quantity = quantity;
-		this.price = price;
-		this.attributes = attributes;
-		this.producer = producer;
-		this.countryOfOrigin = countryOfOrigin;
 	}
 
 	public Long getSerialNo() {
@@ -61,14 +41,6 @@ public class Goods extends NamedEntity {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
 	}
 
 	public boolean isAvailability() {
@@ -95,27 +67,5 @@ public class Goods extends NamedEntity {
 		this.price = price;
 	}
 
-	public List<Attribute> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(List<Attribute> attributes) {
-		this.attributes = attributes;
-	}
-
-	public Producer getProducer() {
-		return producer;
-	}
-
-	public void setProducer(Producer producer) {
-		this.producer = producer;
-	}
-
-	public Country getCountryOfOrigin() {
-		return countryOfOrigin;
-	}
-
-	public void setCountryOfOrigin(Country countryOfOrigin) {
-		this.countryOfOrigin = countryOfOrigin;
-	}
+	
 }

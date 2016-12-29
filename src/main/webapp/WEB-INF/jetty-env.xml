@@ -1,0 +1,29 @@
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+
+   <New id="LocalDatabase" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/mysql</Arg>
+        <Arg>
+            <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
+            	<Set name="driverClass">com.mysql.jdbc.Driver</Set>
+                <Set name="jdbcUrl">jdbc:mysql://localhost:3306/onlineshop?useUnicode=yes&amp;characterEncoding=UTF-8</Set>
+                <Set name="user">developer</Set>
+                <Set name="password">123456</Set>
+            </New>
+        </Arg>
+    </New>
+    
+    <New id="HerokuDatabase" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/postgres</Arg>
+        <Arg>
+            <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
+            	<Set name="driverClass">org.postgresql.Driver</Set>
+                <Set name="jdbcUrl">jdbc:postgres://hfvvwwprsuqhbe:dwRSdxHPGisCWA1O0kFeKJboUX@ec2-54-75-232-51.eu-west-1.compute.amazonaws.com:5432/d5hjnmqtk7n3q4?useUnicode=yes&amp;characterEncoding=UTF-8</Set>
+                <Set name="user">developer</Set>
+                <Set name="password">123456</Set>
+            </New>
+        </Arg>
+    </New>
+
+ </Configure>

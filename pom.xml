@@ -90,9 +90,21 @@
   	
   	<!-- Database -->
   	<dependency>
-	  <groupId>postgresql</groupId>
+	  <groupId>org.postgresql</groupId>
 	  <artifactId>postgresql</artifactId>
 	  <version>${postgresql.version}</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>mysql</groupId>
+	  <artifactId>mysql-connector-java</artifactId>
+	  <version>${mysql.version}</version>
+	</dependency>
+	
+	<dependency>
+	  <groupId>c3p0</groupId>
+	  <artifactId>c3p0</artifactId>
+	  <version>0.9.1.2</version>
 	</dependency>
   	
   	<!-- Tests -->
@@ -152,7 +164,8 @@
   	<java.runtime.version>1.7</java.runtime.version>
   	<project.encoding>UTF-8</project.encoding>
   	<junit.version>4.12</junit.version>
-  	<postgresql.version>9.1-901-1.jdbc4</postgresql.version>
+  	<postgresql.version>9.4.1208</postgresql.version>
+  	<mysql.version>6.0.5</mysql.version>
   	<javax.servlet.version>3.1.0</javax.servlet.version>
   	<jstl.version>1.2</jstl.version>
   	<slf4j.version>1.7.21</slf4j.version>
