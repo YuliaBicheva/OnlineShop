@@ -6,7 +6,7 @@
         <Arg>
             <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
             	<Set name="driverClass">com.mysql.jdbc.Driver</Set>
-                <Set name="jdbcUrl">jdbc:mysql://localhost:3306/onlineshop?useUnicode=yes&amp;characterEncoding=UTF-8</Set>
+                <Set name="jdbcUrl">jdbc:mysql://localhost:3306/onlineshop?useUnicode=yes&amp;characterEncoding=UTF-8&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</Set>
                 <Set name="user">developer</Set>
                 <Set name="password">123456</Set>
             </New>
