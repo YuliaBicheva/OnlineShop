@@ -6,7 +6,7 @@
         <Arg>
             <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
             	<Set name="driverClass">com.mysql.jdbc.Driver</Set>
-                <Set name="jdbcUrl">jdbc:mysql://localhost:3306/onlineshop?useUnicode=yes&amp;characterEncoding=UTF-8&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</Set>
+                <Set name="jdbcUrl">jdbc:mysql://localhost:3306/onlineshop?useUnicode=yes&amp;characterEncoding=UTF-8</Set>
                 <Set name="user">developer</Set>
                 <Set name="password">123456</Set>
             </New>
@@ -19,9 +19,9 @@
         <Arg>
             <New class="com.mchange.v2.c3p0.ComboPooledDataSource">
             	<Set name="driverClass">org.postgresql.Driver</Set>
-                <Set name="jdbcUrl">jdbc:postgres://hfvvwwprsuqhbe:dwRSdxHPGisCWA1O0kFeKJboUX@ec2-54-75-232-51.eu-west-1.compute.amazonaws.com:5432/d5hjnmqtk7n3q4?useUnicode=yes&amp;characterEncoding=UTF-8</Set>
-                <Set name="user">developer</Set>
-                <Set name="password">123456</Set>
+                <Set name="jdbcUrl">jdbc:postgresql://ec2-54-75-232-51.eu-west-1.compute.amazonaws.com:5432/d5hjnmqtk7n3q4?useUnicode=yes&amp;characterEncoding=UTF-8&amp;ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory</Set>
+                <Set name="user">hfvvwwprsuqhbe</Set>
+                <Set name="password">dwRSdxHPGisCWA1O0kFeKJboUX</Set>
             </New>
         </Arg>
     </New>

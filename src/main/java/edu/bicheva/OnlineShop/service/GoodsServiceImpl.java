@@ -1,6 +1,7 @@
 package edu.bicheva.OnlineShop.service;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,8 @@ public class GoodsServiceImpl implements GoodsService {
 			connection = daoFactory.getConnection();
 			goodsDao.setConnection(connection);
 			goodsDao.save(entity);
-		} catch (DbException e) {
+			connection.commit();
+		} catch (DbException | SQLException e) {
 			LOG.error("Cannot save goods {}",entity,e);
 			DatabaseManager.rollback(connection);
 			throw new ApplicationException("Cannot save goods",e);

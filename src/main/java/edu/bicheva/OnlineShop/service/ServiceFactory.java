@@ -2,9 +2,14 @@ package edu.bicheva.OnlineShop.service;
 
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import edu.bicheva.OnlineShop.dao.DaoFactory;
 
 public class ServiceFactory {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(ServiceFactory.class);
 	
 	private static final String MYSQL = "mysql";
 	private static final String POSTGRES = "postgres";
@@ -18,15 +23,15 @@ public class ServiceFactory {
 	private DaoFactory daoFactory;
 	
 	private ServiceFactory(){
+		LOG.debug("Initialization start Service Factory");
 		this.resourceBundle = ResourceBundle.getBundle(RESOURCE_FILE_NAME);
 		String dbTypeSetting = getProperty(DB_TYPE);
-		int dbTypeIndex;
-		switch(dbTypeSetting){
-			case MYSQL: dbTypeIndex = DaoFactory.MYSQL;
-			case POSTGRES: dbTypeIndex = DaoFactory.POSTGRE;
-			default: dbTypeIndex = DaoFactory.MYSQL;
-		}
-		this.daoFactory = DaoFactory.getDaoFactory(dbTypeIndex);
+		
+		LOG.debug("Obtain settings from file -> {}", dbTypeSetting);
+		
+		this.daoFactory = DaoFactory.getDaoFactory(getDbIndex(dbTypeSetting));
+		
+		LOG.debug("Initiaalization ended");
 	}
 	
 	public static ServiceFactory getInstance(){
@@ -38,6 +43,18 @@ public class ServiceFactory {
 	
 	private String getProperty(String key){
 		return (String) this.resourceBundle.getObject(key);
+	}
+	
+	private int getDbIndex(String dbName){
+		int dbTypeIndex;
+		switch(dbName){
+			case MYSQL: dbTypeIndex = DaoFactory.MYSQL;
+			break;
+			case POSTGRES: dbTypeIndex = DaoFactory.POSTGRE;
+			break;
+			default: dbTypeIndex = DaoFactory.MYSQL;
+		}
+		return dbTypeIndex;
 	}
 	
 	public GoodsService getGoodsService(){
