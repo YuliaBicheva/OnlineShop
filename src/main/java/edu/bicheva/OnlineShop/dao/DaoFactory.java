@@ -11,7 +11,7 @@ public abstract class DaoFactory {
 	public static final int MYSQL = 1;
 	public static final int POSTGRE = 2;
 	
-	public abstract GoodsDao getGoodsDao() throws DbException;
+	public abstract GoodsDao getGoodsDao(Connection con) throws DbException;
 	
 	public static DaoFactory getDaoFactory(int whichFactory){
 		DaoFactory daoFactory;

@@ -67,5 +67,10 @@ public class Goods extends NamedEntity {
 		this.price = price;
 	}
 
+	@Override
+	public String toString() {
+		return "Goods [serialNo=" + serialNo + ", description=" + description + ", availability=" + availability
+				+ ", quantity=" + quantity + ", price=" + price + "]";
+	}
 	
 }

@@ -44,9 +44,13 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
 		try{
 			pst = con.prepareStatement(SQL.CREATE_GOODS, PreparedStatement.RETURN_GENERATED_KEYS);
 			
-			rs = pst.executeQuery();
-			if(rs != null && rs.next()){
-				goods.setId(rs.getInt(1));
+			insertGoods(pst,goods);
+			
+			if(pst.executeUpdate() > 0){
+				rs = pst.getGeneratedKeys();
+				if(rs.next()){
+					goods.setId(rs.getInt(1));
+				}
 			}
 		}catch(SQLException e){
 			String msg = "Cannot save Goods";
@@ -137,4 +141,14 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
         goods.setPrice(Money.valueOf(rs.getDouble("price")));
         return goods;
     }
+
+	private void insertGoods(PreparedStatement pst, Goods goods) throws SQLException {
+		int i = 0;
+		pst.setLong(++i, goods.getSerialNo());
+		pst.setString(++i, goods.getName());
+		pst.setString(++i, goods.getDescription());
+		pst.setBoolean(++i, goods.isAvailability());
+		pst.setInt(++i, goods.getQuantity());
+		pst.setDouble(++i, goods.getPrice().doubleValue());
+	}
 }

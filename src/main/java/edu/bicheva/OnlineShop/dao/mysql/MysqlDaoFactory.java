@@ -24,8 +24,8 @@ public class MysqlDaoFactory extends DaoFactory {
 	}
 	
 	@Override
-	public GoodsDao getGoodsDao(){
-		return new MysqlGoodsDaoImpl();
+	public GoodsDao getGoodsDao(Connection con){
+		return new MysqlGoodsDaoImpl(con);
 	}
 
 	public Connection getConnection() throws DbException{

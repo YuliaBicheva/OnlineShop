@@ -18,6 +18,21 @@ public class Money implements Serializable {
 	
 	private Currency currency;
 
+	public Money() {
+		super();
+	}
+
+	public Money(int integralPart, int fractionalPart) {
+		this(integralPart, fractionalPart, DEFAULT_CURRENCY);
+	}
+
+	public Money(int integralPart, int fractionalPart, Currency currency) {
+		super();
+		this.integralPart = integralPart;
+		this.fractionalPart = fractionalPart;
+		this.currency = currency;
+	}
+
 	public int getIntegralPart() {
 		return integralPart;
 	}

@@ -5,6 +5,5 @@
 	<ul>
 		<li><a href="${pageContext.servletContext.contextPath}/">Home</a></li>
 		<li><a href="${pageContext.servletContext.contextPath}/application/catalog">Catalog</a></li>
-		<li><a href="${pageContext.servletContext.contextPath}/application/catalog/1">Catalog by id</a></li>
 	</ul>
 </div>
