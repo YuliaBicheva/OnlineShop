@@ -4,6 +4,7 @@
 /structure/**
 .classpath
 .project
+/.idea/**
 
 # Compiled source #
 ###################
