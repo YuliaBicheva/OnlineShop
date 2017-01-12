@@ -67,6 +67,7 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
 		PreparedStatement pst = null;
 		try{
 			pst = con.prepareStatement(SQL.UPDATE_GOODS);
+			insertGoods(pst, goods);
 			pst.executeUpdate();
 		}catch(SQLException e){
 			LOG.error("Cannot update Goods -> {}", goods, e);
@@ -225,5 +226,8 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
 		pst.setBoolean(++i, goods.isAvailability());
 		pst.setInt(++i, goods.getQuantity());
 		pst.setDouble(++i, goods.getPrice().doubleValue());
+		if(goods.getId() != null){
+			pst.setLong(++i, goods.getId());
+		}
 	}
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -64,23 +65,34 @@ public class Catalog {
 	@GET
 	@Path("/addGoods")
 	public Response addGoods() {
-		return Response.ok(new Viewable("/addGoods")).build();
+		Map<String,Object> map = new HashMap<>();
+		map.put("formAction", "application/catalog/saveGoods");
+		return Response.ok(new Viewable("/addGoods",map)).build();
 	}
 
 	@GET
 	@Path("/editGoods/{id}")
 	public Response editGoods(@PathParam(value = "id") Long id) throws ApplicationException {
+		Map<String,Object> map = new HashMap<>();
+		String viewable = "/error_page.jsp";
 		Goods goods = null;
 		try{
 			goods = serviceFactory.getGoodsService().findById(id);
 			if (goods == null) {
-				// TODO exception when don't find goods with current id
+				String exceptionMessage = "In database doesn't exist goods with such id = " + id + "!"
+						+ "<p>Please, select another goods from the catalog</p>" 
+						+ "<p><a href='\\application\\catalog'>Show goods catalog</a></p>";
+				map.put("message", exceptionMessage);
+			}else{
+				map.put("formAction", "application/catalog/updateGoods");
+				map.put("goods", goods);
+				viewable = "/addGoods";
 			}
 		} catch (ApplicationException e) {
 			LOG.error("Can't edit goods with id={}", id, e);
 			throw e;
 		}
-		return Response.ok(new Viewable("/addGoods", goods)).build();
+		return Response.ok(new Viewable(viewable, map)).build();
 	}
 
 	@GET
@@ -99,6 +111,7 @@ public class Catalog {
 	@Path("/validate")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response validateGoods(
+			@NotNull(message = Message.CANNOT_BE_EMPTY)
 			@Min(value = 100000, message = Message.SHOULD_BE_MORE_THAN
 					+ " 100000") @QueryParam("serialNo") Long serialNo,
 			@NotBlank(message = Message.CANNOT_BE_EMPTY) @QueryParam("name") String name,
@@ -150,6 +163,48 @@ public class Catalog {
 					+ "<p>You can edit existing goods or create new goods with different serial No</p>"
 					+ "<p><a href='\\application\\catalog\\editGoods\\" + goods.getId() + "'>Edit goods with serialNo "
 					+ serialNo + "</a></p>" + "<p><a href='\\application\\catalog\\addGoods'>Add new goods</a></p>";
+			Map<String, Object> map = new HashMap<>();
+			map.put("message", exceptionMessage);
+			return Response.ok(new Viewable("/error_page.jsp", map)).build();
+		}
+	}
+	
+	@POST
+	@Path("/updateGoods")
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response updateGoods(
+			@FormParam("serialNo") Long serialNo,
+			@FormParam("name") String name,
+			@FormParam("description") String description, @FormParam("quantity") int quantity,
+			@FormParam("integralPart") int integralPart, @FormParam("fractionalPart") int fractionalPart,
+			@FormParam("id") Long id)
+			throws ApplicationException, URISyntaxException {
+
+		LOG.debug("Begin execute update goods method");
+		LOG.debug("Obtain parameters: id {}, serialNo {}, name {}, desrciption {}, quantity {}, money {}.{}", id, serialNo, name,
+				description, quantity, integralPart, fractionalPart);
+
+		Goods goods = serviceFactory.getGoodsService().findById(id);
+		
+		if (goods != null) {
+			goods.setSerialNo(serialNo);
+			goods.setName(name);
+			goods.setDescription(description);
+			goods.setQuantity(quantity);
+			goods.setAvailability(goods.getQuantity() > 0);
+			goods.setPrice(new Money(integralPart, fractionalPart));
+
+			LOG.debug("Obtain new goods {}", goods);
+			GoodsService goodsService = serviceFactory.getGoodsService();
+			goodsService.update(goods);
+
+			LOG.debug("Finish execute save goods method");
+			return Response.seeOther(new URI("/application/catalog")).build();
+		} else {
+			String exceptionMessage = "In database doesn't exist goods with such id = " + id + "!"
+					+ "<p>Please, select another goods from the catalog</p>" 
+					+ "<p><a href='\\application\\catalog'>Show goods catalog</a></p>";
 			Map<String, Object> map = new HashMap<>();
 			map.put("message", exceptionMessage);
 			return Response.ok(new Viewable("/error_page.jsp", map)).build();

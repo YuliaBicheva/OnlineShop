@@ -11,27 +11,28 @@
 
 <%@ include file="/WEB-INF/jspf/nav.jspf" %>
 
-<form id="saveGoodsForm" action="${pageContext.servletContext.contextPath}/application/catalog/saveGoods" method="POST">
+<form id="saveGoodsForm" action="${pageContext.servletContext.contextPath}/${it.formAction}" method="POST">
 	<fieldset>
 		<label>SerialNo</label>
-		<input type="text" name="serialNo" value="${it.serialNo }"/>
+		<input type="text" name="serialNo" value="${it.goods.serialNo }"/>
 	</fieldset>
 	<fieldset>
 		<label>Name</label>
-		<input type="text" name="name" value="${it.name }"/>
+		<input type="text" name="name" value="${it.goods.name }"/>
 	</fieldset>
 	<fieldset>
 		<label>Description</label>
-		<input type="text" name="description " value="${it.description }"/>
+		<input type="text" name="description" value="${it.goods.description }"/>
 	</fieldset>
 	<fieldset>
 		<label>Quantity</label>
-		<input type="text" name="quantity" value="${it.quantity }"/>
+		<input type="text" name="quantity" value="${it.goods.quantity }"/>
 	</fieldset>
 	<fieldset>
 		<label>Price</label>
-		<input type="text" name="integralPart" value="${it.price.integralPart }"/>.<input type="text" name="fractionalPart" value="${it.price.fractionalPart }"/>
+		<input type="text" name="integralPart" value="${it.goods.price.integralPart }"/>.<input type="text" name="fractionalPart" value="${it.goods.price.fractionalPart }"/>
 	</fieldset>
+	<input type="hidden" name="id" value="${it.goods.id }">
 	<button class="btn-submit">Add new goods</button>
 </form>
 
