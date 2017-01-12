@@ -11,50 +11,29 @@
 
 <%@ include file="/WEB-INF/jspf/nav.jspf" %>
 
-<h1>Catalog Page</h1>
-
-<table>
+<table id="goodsList">
+	<caption>Goods catalog</caption>
 	<tr>
 		<th>Serial No</th>
 		<th>Name</th>
 		<th>Description</th>
 		<th>Quantity</th>
+		<th>Availability</th>
 		<th>Price</th>
 	</tr>
-	<c:forEach items="${catalog }" var="goods">
+	<tfoot>
 		<tr>
-			<td>${goods.serialNo }</td>
-			<td>${goods.name }</td>
-			<td>${goods.description }</td>
-			<td>${goods.quantity }</td>
-			<td>${goods.price.integralPart }.${goods.price.fractionalPart } UAH</td>
+			<td colspan="6">Please, wait! Catalog is loading!</td>
 		</tr>
-	</c:forEach>
+	</tfoot>
 </table>
 
-<form action="${pageContext.servletContext.contextPath}/application/addGoods" method="POST">
-	<fieldset>
-		<label>SerialNo</label>
-		<input type="text" name="serialNo"/>
-	</fieldset>
-	<fieldset>
-		<label>Name</label>
-		<input type="text" name="name"/>
-	</fieldset>
-	<fieldset>
-		<label>Description</label>
-		<input type="text" name="description"/>
-	</fieldset>
-	<fieldset>
-		<label>Quantity</label>
-		<input type="text" name="quantity"/>
-	</fieldset>
-	<fieldset>
-		<label>Price</label>
-		<input type="text" name="integralPart"/>.<input type="text" name="fractionalPart"/>
-	</fieldset>
-	<input type="submit" value="Add new goods">
-</form>
+<div class="pagination">
+	<ul>
+	</ul>
+</div>
+
+<a class="addGoodsLink" href="${pageContext.servletContext.contextPath}/application/catalog/addGoods">Add new goods</a>
 
 <%@ include file="/WEB-INF/jspf/footer.jspf" %>
 </body>
