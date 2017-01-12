@@ -1,30 +1,38 @@
 package edu.bicheva.OnlineShop.resource;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Min;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.Context;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.server.mvc.Viewable;
+import org.hibernate.validator.constraints.NotBlank;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.bicheva.OnlineShop.entity.Goods;
 import edu.bicheva.OnlineShop.entity.Money;
 import edu.bicheva.OnlineShop.exception.ApplicationException;
+import edu.bicheva.OnlineShop.exception.Message;
 import edu.bicheva.OnlineShop.service.GoodsService;
 import edu.bicheva.OnlineShop.service.ServiceFactory;
 
 
-@Path("/")
+@Path("/catalog")
 public class Catalog {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(Catalog.class);
@@ -32,47 +40,119 @@ public class Catalog {
 	private ServiceFactory serviceFactory = ServiceFactory.getInstance();
 
 	@GET
-	@Path("catalog")
-	public Response getCatalog(@Context HttpServletRequest request)
-			throws ApplicationException, URISyntaxException, UnsupportedEncodingException {
-		
-		LOG.debug("Begin execute get catalog method");
-		
-		GoodsService goodsService = serviceFactory.getGoodsService();
-		List<Goods> catalog = goodsService.findAll();
-		LOG.trace("Obtain catalog {}", catalog);
-		
-		request.setCharacterEncoding("UTF-8");
-		request.setAttribute("catalog", catalog);
+	public Response getCatalog() throws ApplicationException {
+		Map<String, Object> map = new HashMap<>();
+		map.put("goodsCount", serviceFactory.getGoodsService().count());
+		return Response.ok(new Viewable("/catalog", map)).build();
+	}
 
-		LOG.debug("Finish execute get catalog method");
-		return Response.ok(new Viewable("/catalog.jsp")).build();
+	@GET
+	@Path("/size")
+	@Produces(MediaType.APPLICATION_JSON)
+	public long getCatalogSize() throws ApplicationException {
+		return serviceFactory.getGoodsService().count();
+	}
+
+	@GET
+	@Path("/list")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Goods> getAll(@DefaultValue("0") @QueryParam("start") int start,
+			@DefaultValue("3") @QueryParam("step") int step) throws Exception {
+		return serviceFactory.getGoodsService().findAll(start, step);
+	}
+
+	@GET
+	@Path("/addGoods")
+	public Response addGoods() {
+		return Response.ok(new Viewable("/addGoods")).build();
+	}
+
+	@GET
+	@Path("/editGoods/{id}")
+	public Response editGoods(@PathParam(value = "id") Long id) throws ApplicationException {
+		Goods goods = null;
+		try{
+			goods = serviceFactory.getGoodsService().findById(id);
+			if (goods == null) {
+				// TODO exception when don't find goods with current id
+			}
+		} catch (ApplicationException e) {
+			LOG.error("Can't edit goods with id={}", id, e);
+			throw e;
+		}
+		return Response.ok(new Viewable("/addGoods", goods)).build();
+	}
+
+	@GET
+	@Path("/deleteGoods/{id}")
+	public Response deleteGoods(@PathParam(value = "id") Long id) throws ApplicationException, URISyntaxException {
+		try {
+			serviceFactory.getGoodsService().delete(id);
+		} catch (ApplicationException e) {
+			LOG.error("Can't edit goods with id={}", id, e);
+			throw e;
+		}
+		return Response.seeOther(new URI("/application/catalog")).build();
+	}
+
+	@GET
+	@Path("/validate")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response validateGoods(
+			@Min(value = 100000, message = Message.SHOULD_BE_MORE_THAN
+					+ " 100000") @QueryParam("serialNo") Long serialNo,
+			@NotBlank(message = Message.CANNOT_BE_EMPTY) @QueryParam("name") String name,
+			@QueryParam("description") String description,
+			@Min(value = 0, message = Message.SHOULD_BE_MORE_THAN + "0") @QueryParam("quantity") int quantity,
+			@Min(value = 0, message = Message.SHOULD_BE_MORE_THAN
+					+ "0") @QueryParam("integralPart") int integralPart,
+			@Min(value = 0, message = Message.SHOULD_BE_MORE_THAN
+					+ "0") @QueryParam("fractionalPart") int fractionalPart) {
+		String reponse = String.format("serialNo: %s, name: %s, description: %s, quantity: %s, price: %s.%s", serialNo,
+				name, description, quantity, integralPart, fractionalPart);
+		return Response.status(Response.Status.OK).entity(reponse).type(MediaType.TEXT_PLAIN).build();
 	}
 
 	@POST
-	@Path("addGoods")
-	public Response saveGoods(@FormParam("serialNo") String serialNo, @FormParam("name") String name,
-			@FormParam("description") String description, @FormParam("quantity") String quantity,
-			@FormParam("integralPart") String integralPart, @FormParam("fractionalPart") String fractionalPart)
-			throws ApplicationException, URISyntaxException, UnsupportedEncodingException {
+	@Path("/saveGoods")
+	@Produces(MediaType.TEXT_HTML)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response saveGoods(@FormParam("serialNo") Long serialNo,
+			@FormParam("name") String name,
+			@FormParam("description") String description, @FormParam("quantity") int quantity,
+			@FormParam("integralPart") int integralPart, @FormParam("fractionalPart") int fractionalPart)
+			throws ApplicationException, URISyntaxException {
 
 		LOG.debug("Begin execute save goods method");
 		LOG.debug("Obtain parameters: serialNo {}, name {}, desrciption {}, quantity {}, money {}.{}", serialNo, name,
 				description, quantity, integralPart, fractionalPart);
 
-		Goods goods = new Goods();
-		goods.setSerialNo(Long.valueOf(serialNo));
-		goods.setName(name);
-		goods.setDescription(description);
-		goods.setQuantity(Integer.valueOf(quantity));
-		goods.setAvailability(goods.getQuantity() > 0);
-		goods.setPrice(new Money(Integer.valueOf(integralPart), Integer.valueOf(fractionalPart)));
+		Goods goods = serviceFactory.getGoodsService().findBySerialNo(serialNo);
+		
+		if (goods == null) {
 
-		LOG.debug("Obtain new goods {}", goods);
-		GoodsService goodsService = serviceFactory.getGoodsService();
-		goodsService.save(goods);
+			goods = new Goods();
+			goods.setSerialNo(serialNo);
+			goods.setName(name);
+			goods.setDescription(description);
+			goods.setQuantity(quantity);
+			goods.setAvailability(goods.getQuantity() > 0);
+			goods.setPrice(new Money(integralPart, fractionalPart));
 
-		LOG.debug("Finish execute save goods method");
-		return Response.seeOther(new URI("/application/catalog")).build();
+			LOG.debug("Obtain new goods {}", goods);
+			GoodsService goodsService = serviceFactory.getGoodsService();
+			goodsService.save(goods);
+
+			LOG.debug("Finish execute save goods method");
+			return Response.seeOther(new URI("/application/catalog")).build();
+		} else {
+			String exceptionMessage = "In database exists goods with serialNo " + serialNo + "!"
+					+ "<p>You can edit existing goods or create new goods with different serial No</p>"
+					+ "<p><a href='\\application\\catalog\\editGoods\\" + goods.getId() + "'>Edit goods with serialNo "
+					+ serialNo + "</a></p>" + "<p><a href='\\application\\catalog\\addGoods'>Add new goods</a></p>";
+			Map<String, Object> map = new HashMap<>();
+			map.put("message", exceptionMessage);
+			return Response.ok(new Viewable("/error_page.jsp", map)).build();
+		}
 	}
 }

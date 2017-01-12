@@ -29,6 +29,7 @@ public class DatabaseManager {
 		if(dataSource != null){
 			try {
 				connection = dataSource.getConnection();
+				connection.setAutoCommit(false);
 			} catch (SQLException e) {
 				String msg = "Cannot create connection";
 				LOG.error(msg,e);
@@ -81,9 +82,11 @@ public class DatabaseManager {
 	}
 
 	public static void rollback(Connection con) throws DbException{
-		if(con != null){
+		if (con != null) {
 			try{
-				con.rollback();
+				if (!con.isClosed()) {
+					con.rollback();
+				}
 			}catch(SQLException e){
 				String msg = "Cannot rollback connection";
 				LOG.error(msg,e);

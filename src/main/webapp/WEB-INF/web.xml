@@ -26,6 +26,10 @@
           <param-value>/WEB-INF/jsp</param-value>
       </init-param>
       <init-param>
+        <param-name>com.sun.jersey.config.property.WebPageContentRegex</param-name>
+        <param-value>/(resources|(WEB-INF/jsp)|css|js|images)/.*</param-value>
+      </init-param>
+      <init-param>
           <param-name>jersey.config.server.provider.classnames</param-name>
           <param-value>org.glassfish.jersey.server.mvc.jsp.JspMvcFeature</param-value>
       </init-param>
@@ -51,7 +55,7 @@
         <res-auth>Container</res-auth>
     </resource-ref>
     
-    <error-page>
+   <error-page>
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/WEB-INF/jsp/error_page.jsp</location>
 	</error-page>

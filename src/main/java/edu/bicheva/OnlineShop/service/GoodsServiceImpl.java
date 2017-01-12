@@ -1,7 +1,6 @@
 package edu.bicheva.OnlineShop.service;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import edu.bicheva.OnlineShop.dao.DatabaseManager;
 import edu.bicheva.OnlineShop.dao.GoodsDao;
 import edu.bicheva.OnlineShop.entity.Goods;
 import edu.bicheva.OnlineShop.exception.ApplicationException;
-import edu.bicheva.OnlineShop.exception.DbException;
 
 public class GoodsServiceImpl implements GoodsService {
 	
@@ -34,7 +32,8 @@ public class GoodsServiceImpl implements GoodsService {
 			connection = daoFactory.getConnection();
 			goodsDao = daoFactory.getGoodsDao(connection);
 			goodsDao.save(entity);
-		} catch (DbException e) {
+			connection.commit();
+		} catch (Exception e) {
 			LOG.error("Cannot save goods {}",entity,e);
 			DatabaseManager.rollback(connection);
 			throw new ApplicationException("Cannot save goods",e);
@@ -51,7 +50,8 @@ public class GoodsServiceImpl implements GoodsService {
 			connection = daoFactory.getConnection();
 			goodsDao = daoFactory.getGoodsDao(connection);
 			goodsDao.update(entity);
-		} catch (DbException e) {
+			connection.commit();
+		} catch (Exception e) {
 			LOG.error("Cannot update goods {}",entity,e);
 			DatabaseManager.rollback(connection);
 			throw new ApplicationException("Cannot update goods",e);
@@ -68,7 +68,8 @@ public class GoodsServiceImpl implements GoodsService {
 			connection = daoFactory.getConnection();
 			goodsDao = daoFactory.getGoodsDao(connection);
 			goodsDao.delete(id);
-		} catch (DbException e) {
+			connection.commit();
+		} catch (Exception e) {
 			LOG.error("Cannot delete goods with id={}",id,e);
 			DatabaseManager.rollback(connection);
 			throw new ApplicationException("Cannot delete goods",e);
@@ -86,7 +87,8 @@ public class GoodsServiceImpl implements GoodsService {
 			connection = daoFactory.getConnection();
 			goodsDao = daoFactory.getGoodsDao(connection);
 			goods = goodsDao.findById(id);
-		} catch (DbException e) {
+			connection.commit();
+		} catch (Exception e) {
 			LOG.error("Cannot find goods by id={}",id,e);
 			DatabaseManager.rollback(connection);
 			throw new ApplicationException("Cannot finds goods",e);
@@ -105,7 +107,8 @@ public class GoodsServiceImpl implements GoodsService {
 			connection = daoFactory.getConnection();
 			goodsDao = daoFactory.getGoodsDao(connection);
 			goods = goodsDao.findAll();
-		} catch (DbException e) {
+			connection.commit();
+		} catch (Exception e) {
 			LOG.error("Cannot find all goods",e);
 			DatabaseManager.rollback(connection);
 			throw new ApplicationException("Cannot find all goods",e);
@@ -115,5 +118,64 @@ public class GoodsServiceImpl implements GoodsService {
 		return goods;
 	}
 	
+	@Override
+	public List<Goods> findAll(int start, int step) throws ApplicationException {
+		List<Goods> goods = new ArrayList<>();
+		GoodsDao goodsDao;
+		Connection connection = null;
+		try {
+			connection = daoFactory.getConnection();
+			goodsDao = daoFactory.getGoodsDao(connection);
+			goods = goodsDao.findAll(start, step);
+			connection.commit();
+		} catch (Exception e) {
+			LOG.error("Cannot find all goods", e);
+			DatabaseManager.rollback(connection);
+			throw new ApplicationException("Cannot find all goods", e);
+		} finally {
+			DatabaseManager.close(connection);
+		}
+		return goods;
+	}
+
+	@Override
+	public int count() throws ApplicationException {
+		int quantity = 0;
+		GoodsDao goodsDao;
+		Connection connection = null;
+		try {
+			connection = daoFactory.getConnection();
+			goodsDao = daoFactory.getGoodsDao(connection);
+			quantity = goodsDao.count();
+			connection.commit();
+		} catch (Exception e) {
+			LOG.error("Cannot count goods", e);
+			DatabaseManager.rollback(connection);
+			throw new ApplicationException("Cannotcount goods", e);
+		} finally {
+			DatabaseManager.close(connection);
+		}
+		return quantity;
+	}
+
+	@Override
+	public Goods findBySerialNo(Long serialNo) throws ApplicationException {
+		Goods goods = null;
+		GoodsDao goodsDao;
+		Connection connection = null;
+		try {
+			connection = daoFactory.getConnection();
+			goodsDao = daoFactory.getGoodsDao(connection);
+			goods = goodsDao.findBySerialNo(serialNo);
+			connection.commit();
+		} catch (Exception e) {
+			LOG.error("Cannot find goods by serialNo {}", serialNo, e);
+			DatabaseManager.rollback(connection);
+			throw new ApplicationException("Cannot find goods by serialNo " + serialNo, e);
+		} finally {
+			DatabaseManager.close(connection);
+		}
+		return goods;
+	}
 	
 }

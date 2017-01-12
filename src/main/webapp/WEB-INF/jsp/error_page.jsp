@@ -32,16 +32,10 @@
 		<% exception.printStackTrace(new PrintWriter(out)); %>
 	</c:if>
 	
-	<c:if test="${not empty it.code}">
-		<h3>${it.code}</h3>
-	</c:if>
-
-	<c:if test="${not empty it.message}">
-		<h3>${it.message}</h3>
-	</c:if>
-	
-	<c:if test="${not empty it.exception}">
-		<% exception.printStackTrace(new PrintWriter(out)); %>
+	<c:if test="${not empty it}">
+		<c:if test="${not empty it.message}">
+			<h3>${it.message}</h3>
+		</c:if>
 	</c:if>
 </div>
 

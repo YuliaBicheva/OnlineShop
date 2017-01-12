@@ -12,7 +12,11 @@ public class ExceptionJSON {
 	private String messageType;
 
 	public ExceptionJSON() {
-		super();
+		this("","");
+	}
+	
+	public ExceptionJSON(String message, String messageType) {
+		this(null, message, messageType);
 	}
 
 	public ExceptionJSON(Integer index, String message, String messageType) {

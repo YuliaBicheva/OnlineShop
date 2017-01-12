@@ -133,9 +133,14 @@
 	    <artifactId>jersey-container-servlet</artifactId>
 	</dependency>
 	
- 	<dependency>
- 		<groupId>org.glassfish.jersey.media</groupId>
- 		<artifactId>jersey-media-moxy</artifactId>
+	<dependency>
+		<groupId>org.glassfish.jersey.media</groupId>
+		<artifactId>jersey-media-json-jackson</artifactId>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.glassfish.jersey.ext</groupId>
+		<artifactId>jersey-bean-validation</artifactId>
 	</dependency>
         
     <dependency>
@@ -147,17 +152,6 @@
 		<groupId>org.glassfish.jersey.core</groupId>
 		<artifactId>jersey-server</artifactId>
 	</dependency>
-	
-	<!-- <dependency>
-		<groupId>org.glassfish.jersey.media</groupId>
-	    <artifactId>jersey-media-moxy</artifactId>
-	</dependency> -->
-    
-<!--     <dependency>
-	    <groupId>com.google.code.gson</groupId>
-	    <artifactId>gson</artifactId>
-	    <version>${gson.version}</version>
-	</dependency> -->
 	
   </dependencies>
   

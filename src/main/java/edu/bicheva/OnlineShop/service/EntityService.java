@@ -16,4 +16,6 @@ public interface EntityService<E extends Entity> {
 	E findById(Long id) throws ApplicationException;
 	
 	List<E> findAll() throws ApplicationException;
+
+	List<E> findAll(int start, int step) throws ApplicationException;
 }

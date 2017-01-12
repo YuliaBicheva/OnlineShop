@@ -4,3 +4,17 @@
 <div class="footer">
 	Velozapchast - Developed by Yulia Bicheva
 </div>
+
+<!-- 	JQuery Library -->
+<script src="<c:url value='/js/jquery-3.1.1.min.js'/>" charset="utf-8"></script>
+
+<!-- Application activity plugin -->
+<%-- <script src="<c:url value='/js/app_activity.js'/>" charset="utf-8"></script>
+ --%>
+<script src="<c:url value='/js/goodsActions.js'/>" type="text/javascript"></script>
+<!-- <script>
+	$('a.addGoodsLink').activity({
+		message: 'It\'s work'
+	});
+	$('#saveGoodsForm').activity();
+</script> -->

@@ -53,9 +53,8 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
 				}
 			}
 		}catch(SQLException e){
-			String msg = "Cannot save Goods";
-			LOG.error(msg,e);
-			throw new DbException(msg,e);
+			LOG.error("Cannot save Goods => {}", goods, e);
+			throw new DbException("Cannot save Goods => " + goods, e);
 		}finally{
 			DatabaseManager.close(rs,pst);
 		}
@@ -70,9 +69,8 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
 			pst = con.prepareStatement(SQL.UPDATE_GOODS);
 			pst.executeUpdate();
 		}catch(SQLException e){
-			String msg = "Cannot update Goods";
-			LOG.error(msg,e);
-			throw new DbException(msg,e);
+			LOG.error("Cannot update Goods -> {}", goods, e);
+			throw new DbException("Cannot update Goods --> " + goods,e);
 		}finally{
 			DatabaseManager.close(pst);
 		}
@@ -86,7 +84,8 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
         PreparedStatement pst = null;
         ResultSet rs = null;
         try{
-            pst = con.prepareStatement(SQL.FIND_BY_ID_GOODS);
+            pst = con.prepareStatement(SQL.FIND_GOODS_BY_ID);
+			pst.setLong(1, id);
             rs = pst.executeQuery();
             if(rs != null){
                 if(rs.next()) {
@@ -94,8 +93,8 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
                 }
             }
         }catch(SQLException e){
-            String msg = "Cannot find Goods by id {}";
-            LOG.error(msg, id,e);
+			LOG.error("Cannot find Goods by id {}", id, e);
+			throw new DbException("Cannot find Goods by id " + id, e);
         }finally{
             DatabaseManager.close(rs,pst);
         }
@@ -105,6 +104,30 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
 
 
     @Override
+	public Goods findBySerialNo(Long serialNo) throws DbException {
+		Goods goods = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = con.prepareStatement(SQL.FIND_GOODS_BY_SERIAL_NO);
+			pst.setLong(1, serialNo);
+			rs = pst.executeQuery();
+			if (rs != null) {
+				if (rs.next()) {
+					goods = extractGoods(rs);
+				}
+			}
+		} catch (SQLException e) {
+			LOG.error("Cannot find Goods by serialNo {}", serialNo, e);
+			throw new DbException("Cannot find Goods by serialNo " + serialNo, e);
+		} finally {
+			DatabaseManager.close(rs, pst);
+		}
+
+		return goods;
+	}
+
+	@Override
 	public List<Goods> findAll() throws DbException {
     	List<Goods> goodsList = new ArrayList<Goods>();
 		Statement st = null;
@@ -125,12 +148,64 @@ public class MysqlGoodsDaoImpl implements GoodsDao {
 	}
 
 	@Override
-	public void delete(Long id) {
-		// TODO Auto-generated method stub
-
+	public List<Goods> findAll(int start, int step) throws DbException {
+		List<Goods> goodsList = new ArrayList<Goods>();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = con.prepareStatement("SELECT * FROM goods LIMIT ? OFFSET ?");
+			st.setInt(1, step);
+			st.setInt(2, start);
+			rs = st.executeQuery();
+			while (rs.next()) {
+				goodsList.add(extractGoods(rs));
+			}
+		} catch (SQLException e) {
+			LOG.error("Cannot find all goods from database");
+			throw new DbException("Cannot find find all goods", e);
+		} finally {
+			DatabaseManager.close(rs, st);
+		}
+		return goodsList;
 	}
 
-    private Goods extractGoods(ResultSet rs) throws SQLException {
+	@Override
+	public void delete(Long id) throws DbException {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		try {
+			pst = con.prepareStatement(SQL.DELETE_BY_ID_GOODS);
+			pst.setLong(1, id);
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			LOG.error("Cannot delete Goods by id {}", id, e);
+			throw new DbException("Cannot delete Goods by id " + id, e);
+		} finally {
+			DatabaseManager.close(rs, pst);
+		}
+	}
+
+    @Override
+	public int count() throws DbException {
+		int quantity = 0;
+		Statement st = null;
+		ResultSet rs = null;
+		try {
+			st = con.createStatement();
+			rs = st.executeQuery("SELECT count(*) FROM goods");
+			if (rs.next()) {
+				quantity = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			LOG.error("Cannot find all goods from database");
+			throw new DbException("Cannot find find all goods", e);
+		} finally {
+			DatabaseManager.close(rs, st);
+		}
+		return quantity;
+	}
+
+	private Goods extractGoods(ResultSet rs) throws SQLException {
         Goods goods = new Goods();
         goods.setId(rs.getInt("id"));
         goods.setSerialNo(rs.getLong("serialNo"));

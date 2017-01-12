@@ -8,7 +8,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import org.glassfish.jersey.server.mvc.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +21,7 @@ public class ApplicationExceptionMapper implements ExceptionMapper<Exception> {
 		LOG.debug("Obtain application exception -> {}", e.getMessage());
 		Map<String, Object> map = new HashMap<>();
 		map.put("message", e.getMessage());
-		map.put("exception", e);
-		return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).type(MediaType.TEXT_HTML)
-				.entity(new Viewable("/error_page.jsp")).build();
+		return Response.status(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode()).type(MediaType.APPLICATION_JSON)
+				.entity(new ExceptionJSON(e.getMessage(), MessageType.ERROR.getString())).build();
 	}
 }

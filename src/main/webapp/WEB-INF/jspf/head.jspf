@@ -9,4 +9,19 @@
     
     <title>Velozapchasti - ${fn:toUpperCase(title)}</title>
 
+	<style>
+		.pagination li{
+			display: inline-block;
+		}
+		.pagination a{
+			display: block;
+			padding: 5px;
+		}
+		.pagination a.active{
+			color: lightblue;
+		}
+		.error{
+			color: red;
+		}
+	</style>
 </head>

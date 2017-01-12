@@ -17,6 +17,8 @@ public interface EntityDao<E extends Entity> {
 	E findById(Long id) throws DbException;
 	
 	List<E> findAll() throws DbException;
-	
+
+	List<E> findAll(int start, int step) throws DbException;
+
 	void delete(Long id) throws DbException;
 }
